@@ -1,4 +1,8 @@
 # Machine à Café Automatique
+binom link repos : 
+```
+https://github.com/II-Chelmi-II/prog-5-d5?tab=readme-ov-file
+```
 
 Ce dépôt contient la documentation fonctionnelle et technique d’un système de machine à café automatique. Il détaille le fonctionnement métier, les cas d’utilisation, les erreurs possibles, les optimisations envisageables ainsi que la modélisation du processus.
 
