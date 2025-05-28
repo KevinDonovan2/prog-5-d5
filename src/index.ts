@@ -1,18 +1,20 @@
-import { CoffeeMachine } from './CoffeeMachine';
+import { CoffeeMachine } from './models/CoffeeMachine';
+import { CoffeeMachineService } from './services/CoffeeMachineService';
 
 const machine = new CoffeeMachine();
+const service = new CoffeeMachineService(machine);
 
 try {
-  machine.turnOn();
-  machine.addWater(0.5);
-  machine.addBeans(50);
-  machine.pay(5);
-  machine.chooseCoffee('espresso');
-  machine.turnOff();
+  service.turnOn();
+  service.addWater(0.5);
+  service.addBeans(50);
+  service.pay(5);
+  service.chooseCoffee('espresso');
+  service.turnOff();
 } catch (err) {
   if (err instanceof Error) {
-    console.error(err.message);
+    console.error('Erreur:', err.message);
   } else {
-    console.error(err);
+    console.error('Erreur inconnue');
   }
 }
