@@ -14,16 +14,26 @@ interface CoffeeConfig {
 }
 
 const COFFEE_MENU: Record<CoffeeType, CoffeeConfig> = {
-  espresso:  { price: 1.5, waterNeeded: 0.05, beansNeeded: 10, minTemperature: 90 },
-  americano: { price: 2.0, waterNeeded: 0.15, beansNeeded: 10, minTemperature: 90 },
-  latte:     { price: 2.5, waterNeeded: 0.10, beansNeeded: 15, minTemperature: 90 }
+  espresso: {
+    price: 1.5,
+    waterNeeded: 0.05,
+    beansNeeded: 10,
+    minTemperature: 90,
+  },
+  americano: {
+    price: 2.0,
+    waterNeeded: 0.15,
+    beansNeeded: 10,
+    minTemperature: 90,
+  },
+  latte: { price: 2.5, waterNeeded: 0.1, beansNeeded: 15, minTemperature: 90 },
 };
 
 export class CoffeeMachine {
-  private waterTank = 1.0;        // litres
-  private beanContainer = 100;    // grammes
-  private coffeeContainer = 0.0;  // litres
-  private temperature = 25;       // °C
+  private waterTank = 1.0; // litres
+  private beanContainer = 100; // grammes
+  private coffeeContainer = 0.0; // litres
+  private temperature = 25; // °C
   private state: State = 'off';
   private balance = 0;
 
@@ -36,7 +46,8 @@ export class CoffeeMachine {
   }
 
   turnOff() {
-    if (this.state === 'brewing') throw new InvalidStateError(['ready', 'error'], this.state);
+    if (this.state === 'brewing')
+      throw new InvalidStateError(['ready', 'error'], this.state);
     this.state = 'off';
     console.log('Machine éteinte.');
   }
@@ -57,7 +68,8 @@ export class CoffeeMachine {
   }
 
   chooseCoffee(type: CoffeeType) {
-    if (this.state !== 'ready') throw new InvalidStateError(['ready'], this.state);
+    if (this.state !== 'ready')
+      throw new InvalidStateError(['ready'], this.state);
 
     const config = this.coffeeMenu[type];
     this.checkResources(config);
@@ -73,10 +85,14 @@ export class CoffeeMachine {
   }
 
   private checkResources(config: CoffeeConfig) {
-    if (this.balance < config.price) throw new InsufficientFundsError(config.price, this.balance);
-    if (this.waterTank < config.waterNeeded) throw new InsufficientResourcesError('eau');
-    if (this.beanContainer < config.beansNeeded) throw new InsufficientResourcesError('grains');
-    if (this.temperature < config.minTemperature) throw new InsufficientResourcesError('température');
+    if (this.balance < config.price)
+      throw new InsufficientFundsError(config.price, this.balance);
+    if (this.waterTank < config.waterNeeded)
+      throw new InsufficientResourcesError('eau');
+    if (this.beanContainer < config.beansNeeded)
+      throw new InsufficientResourcesError('grains');
+    if (this.temperature < config.minTemperature)
+      throw new InsufficientResourcesError('température');
   }
 
   private grindBeans(amount: number) {
